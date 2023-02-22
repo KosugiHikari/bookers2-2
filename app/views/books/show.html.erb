@@ -24,6 +24,20 @@
           <td><%= render 'favorite', book: @book %></td>
         </tr>
       </table>
+      <div>
+        <% @book.book_comments.each do |book_comment| %>
+          <%= image_tag book_comment.user.get_profile_image, size:'100x100' %>
+          <%= book_comment.user.name %>
+          <%= book_comment.comment %>
+          <% if book_comment.user == current_user %>
+            <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :destroy %>
+          <% end %>
+        <% end %>
+        <%= form_with model: [@book, @book_comment] do |f| %>
+          <%= f.text_area :comment, rouws: '5' %><br>
+          <%= f.submit "送信" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
