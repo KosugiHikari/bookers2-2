@@ -21,22 +21,12 @@
               <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
             <% end %>
-          <td><%= render 'favorite', book: @book %></td>
+          <td><%= render 'favorites/favorite', book: @book %></td>
         </tr>
       </table>
       <div>
-        <% @book.book_comments.each do |book_comment| %>
-          <%= image_tag book_comment.user.get_profile_image, size:'100x100' %>
-          <%= book_comment.user.name %>
-          <%= book_comment.comment %>
-          <% if book_comment.user == current_user %>
-            <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :destroy, class: "btn btn-sm btn-danger" %>
-          <% end %>
-        <% end %>
-        <%= form_with model: [@book, @book_comment] do |f| %>
-          <%= f.text_area :comment, rouws: '5' %><br>
-          <%= f.submit "送信" %>
-        <% end %>
+        <%= render "book_comments/index", book: @book %>
+        <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
       </div>
     </div>
   </div>
