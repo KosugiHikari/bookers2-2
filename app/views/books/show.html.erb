@@ -33,6 +33,16 @@
             <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :destroy %>
           <% end %>
         <% end %>
+        
+        <% if @book_comment.errors.any? %>
+          <%= @book_comment.errors.count %>errors prohibited this obj from being saved:
+          <ul>
+            <% @book_comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        
         <%= form_with model: [@book, @book_comment] do |f| %>
           <%= f.text_area :comment, rouws: '5' %><br>
           <%= f.submit "送信" %>
