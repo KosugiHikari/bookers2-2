@@ -14,8 +14,8 @@
   <% render 'users/follow', user: user %>
 <% end %>
 
+<% if user.name != "guestuser" %>
 <div class='row'>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <i class="fas fa-user-cog"></i>
-  <% end %>
+  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
 </div>
+<% end %>
