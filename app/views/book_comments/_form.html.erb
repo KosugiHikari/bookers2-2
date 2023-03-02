@@ -1,4 +1,4 @@
-<%= form_with model: [@book, @book_comment], local: false do |f| %>
-  <%= f.text_area :comment, rouws: '5', class: "w-100" %><br>
+<%= form_with model:[@book, @book_comment], local: false do |f| %>
+  <%= f.text_area :comment, rouws:'5', class: "w-100 comment_textarea" %><br>
   <%= f.submit "送信" %>
 <% end %>
