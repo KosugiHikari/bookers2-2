@@ -7,20 +7,31 @@
     <%= f.label :opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
-  <div id="rate_stars">
-    <%= f.label :comfort, 'Rate', class: 'star' %>
-  </div>
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-success' %>
-  </div>
-<% end %>
-<script>
-    let elem = document.querySelector('#rate_stars');
-    let opt = {
+  
+  <% if book.id === nil %>
+      <%= f.label :Late %>
+      <%= f.hidden_field :star, id: :review_star, class:'form-control' %>
+
+  <div id="rate_stars"></div>
+  <script>
+    $(document).on('turbolinks:load', function() {
+    let raty_elem = document.querySelector('#rate_stars');
+    raty_elem.innerHTML = ""
+    let option = {
     starOn: "<%= asset_path('star-on.png') %>",
     starOff: "<%= asset_path('star-off.png') %>",
     starHalf: "<%= asset_path('star-half.png') %>",
     scoreName: 'book[star]'
    };
-   raty(elem,opt);
+   raty(raty_elem,option);
+  });
 </script>
+
+<% else %>
+  <%= render "star", book: book %>
+<% end %>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-success' %>
+  </div>
+<% end %>
