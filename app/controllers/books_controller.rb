@@ -19,7 +19,17 @@ class BooksController < ApplicationController
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size
     }
-    @book = Book.new
+    if params[:latest]
+      @booksort = Book.latest
+    elsif params[:old]
+      @booksort = Book.old
+    elsif params[:star_count]
+      @booksort = Book.star_count
+    else
+      @booksort = Book.all
+    end
+    
+     @book = Book.new
   end
 
   def create
@@ -63,4 +73,11 @@ class BooksController < ApplicationController
         redirect_to books_path
       end
     end
+    
+     def ensure_correct_user
+    @book = Book.find(params[:id])
+    unless @book.user == current_user
+      redirect_to books_path
+    end
+  end
 end
