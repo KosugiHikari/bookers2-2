@@ -1,11 +1,15 @@
 <%= form_with model:book,local:true do |f| %>
   <div class="form-group">
-    <%= f.label :title %>
+    <%= f.label :Title %>
     <%= f.text_field :title, class: 'form-control book_title' %>
   </div>
   <div class="form-group">
-    <%= f.label :opinion %>
+    <%= f.label :Opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :Tag %>
+    <%= f.text_field :tag, class: 'form-control book_tag' %>
   </div>
   
   <!--５段階評価ここから-->

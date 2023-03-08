@@ -16,10 +16,11 @@ Rails.application.routes.draw do
     get "followings" => "relationships#followings", as: "followings"
     get "followers" => "relationships#followers", as: "followers"
   end
-  
+
   resources :messages, only: [:show, :create]
 
   get "home/about" => "homes#about"
   get "search" => "searches#search"
+  get "tag_search" => "tag_searches#tag_search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
