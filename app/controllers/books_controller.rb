@@ -13,12 +13,6 @@ class BooksController < ApplicationController
   end
 
   def index
-    to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    @books = Book.all.sort {|a,b|
-      b.favorites.where(created_at: from...to).size <=>
-      a.favorites.where(created_at: from...to).size
-    }
     if params[:latest]
       @booksort = Book.latest
     elsif params[:old]
@@ -28,8 +22,15 @@ class BooksController < ApplicationController
     else
       @booksort = Book.all
     end
-    
-     @book = Book.new
+
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
+    @books = Book.all.sort {|a,b|
+      b.favorites.where(created_at: from...to).size <=>
+      a.favorites.where(created_at: from...to).size
+    }
+
+    @book = Book.new
   end
 
   def create
@@ -73,7 +74,7 @@ class BooksController < ApplicationController
         redirect_to books_path
       end
     end
-    
+
      def ensure_correct_user
     @book = Book.find(params[:id])
     unless @book.user == current_user

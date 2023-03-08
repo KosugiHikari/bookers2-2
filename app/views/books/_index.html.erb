@@ -13,6 +13,8 @@
         <td><%= link_to(book.user) do %>
           <%= image_tag book.user.get_profile_image, size:'50x50' %>
           <% end %>
+          <!--時間表示↓-->
+           <%= l book.created_at %>
         </td>
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
