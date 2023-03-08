@@ -13,23 +13,16 @@ class BooksController < ApplicationController
   end
 
   def index
-    if params[:latest]
-      @booksort = Book.latest
-    elsif params[:old]
-      @booksort = Book.old
-    elsif params[:star_count]
-      @booksort = Book.star_count
-    else
-      @booksort = Book.all
-    end
-
-    to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    @books = Book.all.sort {|a,b|
-      b.favorites.where(created_at: from...to).size <=>
-      a.favorites.where(created_at: from...to).size
-    }
-
+    
+    # ソート機能使わずに１週間以内のいいね数が多い順に並べるのはこっち↓
+    # to = Time.current.at_end_of_day
+    # from = (to - 6.day).at_beginning_of_day
+    # @books = Book.all.sort {|a,b|
+    #   b.favorites.where(created_at: from...to).size <=>
+    #   a.favorites.where(created_at: from...to).size
+    # }
+    
+    @books = Book.all.order(params[:sort])
     @book = Book.new
   end
 
