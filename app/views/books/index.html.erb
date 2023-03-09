@@ -14,7 +14,7 @@
         |<%= link_to '古い順', books_path(sort: 'created_at ASC') %>
         |<%= link_to '評価の高い順', books_path(sort: 'star DESC') %>
       </p>
-      <%= render 'index', books: @books %>
+      <%= render 'index', books: @books, tag: tag %>
     </div>
   </div>
 </div>
